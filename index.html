@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHubに音声ファイル付きでアップロードする方法</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #24292e 0%, #586069 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .step-card {
+            background: #f8f9ff;
+            border: 2px solid #e3f2fd;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #0366d6, #28a745);
+        }
+        
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #0366d6, #28a745);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .step-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #24292e;
+            margin-bottom: 15px;
+        }
+        
+        .file-structure {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #0366d6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(45deg, #ffc107, #ff8f00);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ff6f00;
+        }
+        
+        .success-box {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #198754;
+        }
+        
+        .info-box {
+            background: linear-gradient(45deg, #17a2b8, #20c997);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #0d6efd;
+        }
+        
+        .screenshot-placeholder {
+            background: linear-gradient(45deg, #f1f3f4, #e8eaed);
+            border: 2px dashed #5f6368;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            color: #5f6368;
+            font-style: italic;
+        }
+        
+        .file-list {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .file-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+        
+        .troubleshoot {
+            background: linear-gradient(45deg, #dc3545, #e74c3c);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 GitHubに音声ファイル付きでアップロード</h1>
+            <p>HTMLファイルと音声ファイルを一緒にアップロードする完全ガイド</p>
+        </div>
+        
+        <div class="content">
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    音声ファイルの準備
+                </div>
+                
+                <h3>📁 ファイル名を統一</h3>
+                <p>音声ファイルの名前を以下のようにリネーム：</p>
+                <div class="file-structure">
+business-inventory-guide.mp3
+</div>
+                
+                <div class="info-box">
+                    <h3>💡 推奨音声形式</h3>
+                    <ul>
+                        <li><strong>MP3</strong> - 最も互換性が高い（推奨）</li>
+                        <li><strong>WAV</strong> - 高品質だがファイルサイズ大</li>
+                        <li><strong>OGG</strong> - 圧縮率が良い</li>
+                    </ul>
+                </div>
+                
+                <h3>📏 ファイルサイズの注意点</h3>
+                <ul>
+                    <li>GitHubの単一ファイル制限：<strong>100MB</strong></li>
+                    <li>リポジトリ全体の推奨サイズ：<strong>1GB以下</strong></li>
+                    <li>音声ファイルが大きい場合は圧縮を検討</li>
+                </ul>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    フォルダ構成の準備
+                </div>
+                
+                <p>ローカルでフォルダを以下のように整理：</p>
+                <div class="file-structure">
+📁 my-project/
+├── 📄 index.html                    (メインHTMLファイル)
+├── 🎵 business-inventory-guide.mp3  (音声ファイル)
+├── 📄 README.md                     (プロジェクト説明)
+└── 📁 assets/                       (画像などの追加ファイル)
+    ├── 🖼️ logo.png
+    └── 🖼️ screenshot.jpg
+</div>
+                
+                <div class="file-list">
+                    <h4>📋 アップロード予定ファイル一覧</h4>
+                    <div class="file-item">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <strong>index.html</strong><br>
+                            <small>メインのHTMLファイル（業務棚卸ガイド）</small>
+                        </div>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-icon">🎵</span>
+                        <div>
+                            <strong>business-inventory-guide.mp3</strong><br>
+                            <small>音声解説ファイル</small>
+                        </div>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <strong>README.md</strong><br>
+                            <small>プロジェクトの説明文</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    GitHubにアップロード
+                </div>
+                
+                <h3>🌐 ブラウザ版での手順</h3>
+                <ol>
+                    <li><strong>リポジトリにアクセス</strong>
+                        <ul>
+                            <li>GitHub.com で自分のリポジトリを開く</li>
+                            <li>または新規リポジトリを作成</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>ファイルアップロード</strong>
+                        <ul>
+                            <li>「Add file」→「Upload files」をクリック</li>
+                            <li>HTMLファイルと音声ファイルを<strong>同時に</strong>ドラッグ&ドロップ</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>コミット</strong>
+                        <ul>
+                            <li>コミットメッセージ：「Add HTML guide with audio explanation」</li>
+                            <li>「Commit changes」をクリック</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <div class="screenshot-placeholder">
+                    GitHubのファイルアップロード画面のスクリーンショット<br>
+                    複数ファイルを同時にドラッグ&ドロップしている様子
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">4</span>
+                    GitHub Pagesでの公開設定
+                </div>
+                
+                <ol>
+                    <li><strong>Settings タブ</strong>をクリック</li>
+                    <li>左メニューから<strong>「Pages」</strong>を選択</li>
+                    <li><strong>Source</strong>で「Deploy from a branch」を選択</li>
+                    <li><strong>Branch</strong>で「main」を選択</li>
+                    <li><strong>「Save」</strong>をクリック</li>
+                </ol>
+                
+                <div class="success-box">
+                    <h3>🎉 公開完了！</h3>
+                    <p>数分後、以下のURLでアクセス可能：</p>
+                    <code>https://ユーザー名.github.io/リポジトリ名/</code>
+                    <br><br>
+                    <p>音声ファイルのURL：</p>
+                    <code>https://ユーザー名.github.io/リポジトリ名/business-inventory-guide.mp3</code>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">5</span>
+                    動作確認
+                </div>
+                
+                <h3>✅ 確認項目</h3>
+                <ul>
+                    <li>📄 HTMLページが正常に表示される</li>
+                    <li>🎵 音声プレイヤーが表示される</li>
+                    <li>▶️ 音声が再生できる</li>
+                    <li>📱 スマホでも動作する</li>
+                    <li>🔗 共有URLが正常に働く</li>
+                </ul>
+                
+                <div class="file-structure">
+テスト手順:
+1. GitHub Pages のURLにアクセス
+2. 音声セクションまでスクロール
+3. 再生ボタンをクリック
+4. 音声が流れることを確認
+</div>
+            </div>
+            
+            <div class="warning-box">
+                <h2>⚠️ よくある問題と解決法</h2>
+                
+                <h3>🚫 音声が再生されない場合</h3>
+                <ul>
+                    <li><strong>ファイル名の確認</strong>：HTMLファイル内の記述と実際のファイル名が一致しているか</li>
+                    <li><strong>ファイルパス</strong>：同じフォルダにあるか確認</li>
+                    <li><strong>ファイル形式</strong>：ブラウザが対応している形式か（MP3推奨）</li>
+                    <li><strong>HTTPS</strong>：GitHub Pagesは自動的にHTTPS。HTTP混在に注意</li>
+                </ul>
+                
+                <h3>📁 ファイルサイズが大きすぎる場合</h3>
+                <ul>
+                    <li><strong>音声圧縮</strong>：Audacityなどで品質を下げて圧縮</li>
+                    <li><strong>Git LFS</strong>：大容量ファイル用のGit拡張機能を使用</li>
+                    <li><strong>外部サービス</strong>：SoundCloud、YouTube等にアップロード</li>
+                </ul>
+            </div>
+            
+            <div class="troubleshoot">
+                <h2>🔧 トラブルシューティング</h2>
+                
+                <h3>問題：「404 Not Found」エラー</h3>
+                <p><strong>解決法：</strong></p>
+                <ul>
+                    <li>GitHub Pages が有効になっているか確認</li>
+                    <li>ファイルが正しくアップロードされているか確認</li>
+                    <li>数分待ってから再度アクセス</li>
+                </ul>
+                
+                <h3>問題：音声ファイルが見つからない</h3>
+                <p><strong>解決法：</strong></p>
+                <ul>
+                    <li>ブラウザの開発者ツール（F12）でネットワークエラーを確認</li>
+                    <li>ファイル名の大文字小文字を確認</li>
+                    <li>特殊文字やスペースが含まれていないか確認</li>
+                </ul>
+            </div>
+            
+            <div class="success-box">
+                <h2>🚀 完成後の活用方法</h2>
+                <ul>
+                    <li><strong>🔗 URL共有</strong>：チームメンバーや上司に直接URLを送信</li>
+                    <li><strong>📱 QRコード作成</strong>：URLからQRコードを生成して印刷資料に掲載</li>
+                    <li><strong>💼 プレゼン活用</strong>：会議で音声付き資料として使用</li>
+                    <li><strong>📧 メール添付</strong>：URLを含めたメールで関係者に配布</li>
+                    <li><strong>📋 研修教材</strong>：新人研修や部署説明会で活用</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
